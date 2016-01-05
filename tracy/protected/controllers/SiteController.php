@@ -37,9 +37,6 @@ class SiteController extends Controller
 			array('allow', // allow authenticated user to perform every action
 				'users'=>array('@'),
 			),
-			/*array('deny',  // deny all users
-				'users'=>array('*'),
-            ),*/
 		);
 	}
     
@@ -85,7 +82,7 @@ class SiteController extends Controller
 		}
 
 		// collect user input data
-		if(isset($_POST['LoginForm']) && !empty($_POST['LoginForm']))
+		if(isset($_POST['LoginForm']))
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
