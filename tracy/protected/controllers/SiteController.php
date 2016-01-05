@@ -37,9 +37,9 @@ class SiteController extends Controller
 			array('allow', // allow authenticated user to perform every action
 				'users'=>array('@'),
 			),
-			array('deny',  // deny all users
+			/*array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+            ),*/
 		);
 	}
     
