@@ -26,7 +26,7 @@ fi
 
 # Confirms tracy database exists, otherwise
 # create it.
-if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" -e "select * from tracy.actor;;" "$OPENSHIFT_APP_NAME" > /dev/null
+if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" -e "select * from requisiti.actor;;" "$OPENSHIFT_APP_NAME" > /dev/null
 then
     echo "Tracy database not found, creating it..."
     /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/SQLScripts/tracy.sql"
