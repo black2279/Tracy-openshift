@@ -5,6 +5,10 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
+$db_host = getenv('OPENSHIFT_MYSQL_DB_HOST');
+$db_port = getenv('OPENSHIFT_MYSQL_DB_PORT');
+$db_user = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
+$db_pass = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Tracy',
@@ -52,27 +56,27 @@ return array(
 		),
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=requisiti',
+			'connectionString' => "mysql:host=$db_host;port=$db_port;dbname=requisiti",
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'admin',
+			'username' => $db_user,
+			'password' => $db_pass,
 			'charset' => 'utf8',
 		),
         
 		'db_redmine'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=redmine',
+			'connectionString' => "mysql:host=$db_host;port=$db_port;dbname=redmine",
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'admin',
+			'username' => $db_user,
+			'password' => $db_pass,
 			'charset' => 'utf8',
             'class' => 'CDbConnection',
 		),
         
 		'db_pdca'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=grafico_pdca',
+			'connectionString' => "mysql:host=$db_host;port=$db_port;dbname=grafico_pdca",
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'admin',
+			'username' => $db_user,
+			'password' => $db_pass,
 			'charset' => 'utf8',
             'class' => 'CDbConnection',
 		),

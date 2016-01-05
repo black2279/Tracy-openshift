@@ -1,0 +1,36 @@
+#!/bin/bash
+# This is a simple build script, place your post-deploy but pre-start commands
+# in this script.  This script gets executed directly, so it could be python,
+# php, ruby, etc.
+
+set -e
+
+# Checks MySQL database is installed, 
+# otherwise exit.
+if [ -z $OPENSHIFT_MYSQL_DB_HOST ]
+then
+    echo "No database found"
+    exit 5
+fi
+
+# Confirms redmine database exists, otherwise
+# create it.
+if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" -e "select * from redmine.attachments;;" "$OPENSHIFT_APP_NAME" > /dev/null
+then
+    echo "Redmine database not found, creating it..."
+    /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/SQLScripts/redmine.sql"
+    echo "done."
+else
+    echo "Redmine database found, skipping import."
+fi
+
+# Confirms tracy database exists, otherwise
+# create it.
+if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" -e "select * from tracy.actor;;" "$OPENSHIFT_APP_NAME" > /dev/null
+then
+    echo "Tracy database not found, creating it..."
+    /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/SQLScripts/tracy.sql"
+    echo "done."
+else
+    echo "Tracy database found, skipping import."
+fi
