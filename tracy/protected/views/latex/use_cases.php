@@ -29,7 +29,7 @@ function display_uc($useCase, $raw)
       
     if ( isset($useCase->useCaseEvents) && count($useCase->useCaseEvents) )
         $string .="
-        \\begin{figure}[H]
+        \\begin{figure}
             \\centering
             \\includegraphics[scale=0.95]{img/$id.pdf}
             \\caption{Caso d'uso $id: {$useCase->title}}\\label{fig:$id} 
@@ -41,7 +41,7 @@ function display_uc($useCase, $raw)
     if ( $useCase->id_use_case != 52 )
         $string .="\\item \\textbf{Attori}: Utente;\n";
     
-    $string .="\\item \\textbf{Scopo e descrizione}: {$useCase->description}; 
+    $string .="\\item \\textbf{Descrizione}: {$useCase->description}; 
       \\item \\textbf{Precondizione}: {$useCase->pre};\n";
       
     
